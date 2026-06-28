@@ -40,12 +40,15 @@ class Cat(models.Model):
         return f"{self.name} (уровень {self.level})"
     
 class Pair(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user1 = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user1')
+    user2 = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='user2')
     cat = models.OneToOneField(Cat, on_delete=models.CASCADE)
     coins = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Аккаунт пары {self.user.username}"
+        if self.user2:
+            return f"Пара: {self.user1.username} и {self.user2.username}"
+        return f"Пара: {self.user1.username} (в поиске)"
 
 class WeatherChoices(models.TextChoices):
     SUNNY = 'Sunny', 'Солнечно'
@@ -74,7 +77,7 @@ class MoodChoices(models.TextChoices):
 class Idea(models.Model):
     title = models.CharField(max_length=100)
     weather = models.CharField(max_length=20, choices=WeatherChoices.choices)
-    temperature = models.IntegerField()
+    temperature = models.IntegerField(null=True, blank=True)
     time = models.CharField(max_length=20, choices=TimeChoices.choices)
     budget = models.IntegerField()
     mood = models.CharField(max_length=20, choices=MoodChoices.choices)
