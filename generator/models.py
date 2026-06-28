@@ -27,6 +27,7 @@ class Toy(models.Model):
         return self.name
     
 class Cat(models.Model):
+    name = models.CharField(max_length=100, default="Микки")
     level = models.IntegerField(default=0)
     last_petted_date = models.DateTimeField(null=True, blank=True)
     current_outfit = models.ForeignKey(Outfit, on_delete=models.CASCADE)
@@ -36,7 +37,7 @@ class Cat(models.Model):
     inventory = models.ManyToManyField(Toy, blank=True, related_name='cats_with_inventory')
 
     def __str__(self):
-        return f"Микки (уровень {self.level})"
+        return f"{self.name} (уровень {self.level})"
     
 class Pair(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
