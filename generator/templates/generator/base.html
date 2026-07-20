@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Irish+Grover&display=swap" rel="stylesheet">
+    <title>Шапка</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+        </div>
+        <nav class="navbar">
+            <a href="{% url 'idea_list' %}">Идеи свиданий</a>
+            <a href="#">Моя история</a>
+        </nav>
+        <div class="cute-button">
+            <div class="star">
+                <img src="{% static 'images/star.png' %}" alt="">
+            </div>
+            <div class="date">
+                <button type="submit">Провести свидание</button>
+            </div>
+            <div class="star">
+                <img src="{% static 'images/star.png' %}" alt="">
+            </div>
+        </div>
+        <div class="money">
+            <img src="{% static 'images/coin.png' %}" alt="">
+            <p>3000</p>
+        </div>
+    </header>
+
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+</body>
+</html>

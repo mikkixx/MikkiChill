@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Идеи для свиданий</title>
-</head>
-<body>
-    {% for idea in ideas %}
-    <div class="card-idea">
-        {% if idea.image %}
-        <img src="{{ idea.image.url }}" alt="" width=auto, height=auto>
-        {% endif %}
-        <h1>{{ idea.title }}</h1>
-        <p>Погода: {{ idea.get_weather_display }} </p>
-        <p>Температура: {{ idea.temperature }} °C</p>
-        <p>Время: {{ idea.get_time_display }}</p>
-        <p>Бюджет: {{ idea.budget }} ₽</p>
-        <p>Настроение: {{ idea.get_mood_display }}</p>
-    </div>
-    {% endfor %}
-</body>
-</html>
+{% extends 'generator/base.html' %}
+{% block content %}
+    <p>Привет!</p>
+{% endblock %}
