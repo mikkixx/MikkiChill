@@ -31,8 +31,8 @@ class Cat(models.Model):
     level = models.IntegerField(default=0)
     last_petted_date = models.DateTimeField(null=True, blank=True)
     current_outfit = models.ForeignKey(Outfit, on_delete=models.CASCADE)
-    current_clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE, null=True, blank=True, related_name='current_clothing_for_cats')
-    current_toy = models.ForeignKey(Toy, on_delete=models.CASCADE, null=True, blank=True, related_name='current_toy_for_cats')
+    current_clothing = models.ForeignKey(Clothing, on_delete=models.SET_NULL, null=True, blank=True, related_name='current_clothing_for_cats')
+    current_toy = models.ForeignKey(Toy, on_delete=models.SET_NULL, null=True, blank=True, related_name='current_toy_for_cats')
     wardrobe = models.ManyToManyField(Clothing, blank=True, related_name='cats_with_wardrobe')
     inventory = models.ManyToManyField(Toy, blank=True, related_name='cats_with_inventory')
 
@@ -45,6 +45,10 @@ class Pair(models.Model):
     cat = models.OneToOneField(Cat, on_delete=models.CASCADE)
     coins = models.IntegerField(default=0)
 
+    @staticmethod
+    def get_pair_for_user(user):
+        return Pair.objects.filter(models.Q(user1=user) | models.Q(user2 = user)).first()
+    
     def __str__(self):
         if self.user2:
             return f"Пара: {self.user1.username} и {self.user2.username}"
